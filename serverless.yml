@@ -1,28 +1,23 @@
 org: mateoismael
 service: json-diagram-generator
 
-plugins:
-  - serverless-python-requirements
-
 provider:
   name: aws
-  runtime: python3.13
-  memorySize: 1024
-  timeout: 30
   region: us-east-1
   iam:
     role: arn:aws:iam::111097882274:role/LabRole
 
-custom:
-  pythonRequirements:
-    dockerizePip: true
+  ecr:
+    images:
+      generate-diagram:
+        path: .    # Debe usarse en minúsculas y con guiones
 
 functions:
   generate-diagram:
-    handler: lambda_handler.lambda_handler
+    image:
+      name: generate-diagram    # ahora cumple /^[a-z][a-z0-9-_]{1,31}$/
     events:
       - http:
           path: /generate-diagram
           method: post
           cors: true
-          integration: lambda-proxy
