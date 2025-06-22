@@ -8,7 +8,7 @@ provider:
   name: aws
   runtime: python3.13
   memorySize: 1024
-  timeout: 60
+  timeout: 30
   region: us-east-1
   iam:
     role: arn:aws:iam::111097882274:role/LabRole
@@ -26,5 +26,3 @@ functions:
           method: post
           cors: true
           integration: lambda-proxy
-    layers:
-      - arn:aws:lambda:us-east-1:254780740814:layer:graphvizlayer:1
